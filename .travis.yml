@@ -1,0 +1,7 @@
+services:
+  - docker
+
+before_install:
+- (cd powerpc-unknown-linux-gnu/ && docker build -t powerpc-unknown-linux-gnu .)
+- pwd
+- docker run -v $TRAVIS_BUILD_DIR:/hostdir powerpc-unknown-linux-gnu /bin/bash -c "ls /hostdir"
