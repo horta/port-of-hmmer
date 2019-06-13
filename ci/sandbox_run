@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
-if [ "$TARGET" == "powerpc-unknown-linux-gnu" ]
+if [ "$TRAVIS_OS_NAME" == "linux" ]
 then
-  docker exec -t $TARGET ssh_run "$@"
+  if [ "$TARGET" == "powerpc-unknown-linux-gnu" ]
+  then
+    docker exec -t $TARGET ssh_run "$@"
+  else
+    docker exec -t $TARGET "$@"
+  fi
 else
-  docker exec -t $TARGET "$@"
+  eval "$@"
 fi

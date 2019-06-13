@@ -9,6 +9,10 @@ matrix:
       name: x86_64-pc-linux-gnu
     - env: TARGET=powerpc-unknown-linux-gnu
       name: powerpc-unknown-linux-gnu
+    - os: osx
+      env: TARGET=osx
+      name: osx
+
 
 before_install:
   - BUILD_IMAGE=true ci/travis.sh
