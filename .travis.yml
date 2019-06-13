@@ -9,12 +9,12 @@ env:
 
 before_install:
 - (cd $TARGET && docker build -t $TARGET .)
-- touch $TARGET/hello
-# - docker run -it -d -v $TRAVIS_BUILD_DIR:/hostdir $TARGET setup.sh
 - docker run -d -v $TRAVIS_BUILD_DIR:/hostdir --name $TARGET -t $TARGET
 - docker exec -t $TARGET ./setup.sh
-- echo "I'm here"
-# - docker exec $TARGET /bin/bash -c "test -e /hostdir/$TARGET/hello"
+
+script:
+- touch $TARGET/hello
+- docker exec -t $TARGET test -e $TARGET/hello
 - rm $TARGET/hello
 
 notifications:

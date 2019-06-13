@@ -16,10 +16,15 @@ done
 echo "Done."
 
 ssh_cmd () {
-    sshpass -p 'root' ssh -t -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root "$1"
+    sshpass -p 'root' ssh -t -oLogLevel=QUIET -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root "$1"
 }
 
 ssh_cmd "echo \"host0 $DIR 9p trans=virtio,version=9p2000.L   0 0\" >> /etc/fstab"
 ssh_cmd "mkdir $DIR"
 ssh_cmd "mount $DIR"
 ssh_cmd "ls $DIR"
+ssh_cmd "arch"
+ssh_cmd "uname -a"
+ssh_cmd "cat /proc/cpuinfo"
+
+echo "SETUP is done!"
