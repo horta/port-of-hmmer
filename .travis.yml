@@ -3,9 +3,12 @@ language: minimal
 services:
   - docker
 
-env:
-  matrix:
-    - TARGET=powerpc-unknown-linux-gnu
+matrix:
+  include:
+    - env: TARGET=x86_64-pc-linux-gnu
+      name: x86_64-pc-linux-gnu
+    - env: TARGET=powerpc-unknown-linux-gnu
+      name: powerpc-unknown-linux-gnu
 
 before_install:
   - IMAGE_NAME=hortaebi/port-of-hmmer:$TARGET
@@ -19,8 +22,8 @@ before_install:
     done;
 
 script:
-  - docker exec -t $TARGET ssh_run pwd
-  - docker exec -t $TARGET ssh_run ls
+  - sandbox_run pwd
+  - sandbox_run ls
 
 notifications:
   email:
