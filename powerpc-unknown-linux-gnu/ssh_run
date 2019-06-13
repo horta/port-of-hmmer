@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-sshpass -p 'root' ssh -t -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root "cd /hostdir && $@"
+cmd="cd /hostdir && $@"
+echo "Running: $cmd on the guest..."
+sshpass -p 'root' ssh -t -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root "$cmd"
