@@ -8,6 +8,7 @@ As of now, we have docker images and scripts to be used with the Travis CI servi
 ## Usage
 
 ```yaml
+# .travis.yml
 language: minimal
 
 services:
