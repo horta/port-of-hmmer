@@ -8,10 +8,13 @@ then
 
   if [ "${BUILD_IMAGE+x}" = "x" ] && [ "$BUILD_IMAGE" == "true" ]
   then
+    echo "Building docker image $IMAGE_NAME..."
     (cd $TARGET && docker build -t $IMAGE_NAME .)
   else
+    echo "Pulling docker image $IMAGE_NAME..."
     docker pull $IMAGE_NAME
   fi
+  echo "Docker image done."
 
   docker run -dit -v $TRAVIS_BUILD_DIR:/hostdir --name $TARGET $IMAGE_NAME
   docker inspect -f {{.State.Health.Status}} $TARGET
@@ -21,6 +24,9 @@ then
     sleep 30;
     echo "Waiting for docker service to finish startup..."
   done
+
+  msg=(docker inspect -f {{.State.Health.Status}} $TARGET)
+  echo "Docker service is $msg."
 
   docker exec -t $TARGET ssh_run "apt-get update && apt-get upgrade -y"
   docker exec -t $TARGET ssh_run "apt-get install -y python3"
