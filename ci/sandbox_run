@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
 
-docker exec -t $TARGET ssh_run "$@"
+if [ "$TARGET" == "powerpc-unknown-linux-gnu" ]
+then
+  docker exec -t $TARGET ssh_run "$@"
+else
+  docker exec -t $TARGET "$@"
+fi
