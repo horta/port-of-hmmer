@@ -11,19 +11,10 @@ matrix:
       name: powerpc-unknown-linux-gnu
 
 before_install:
-  - IMAGE_NAME=hortaebi/port-of-hmmer:$TARGET
-  - (cd $TARGET && docker build -t $IMAGE_NAME .)
-  - docker run -dit -v $TRAVIS_BUILD_DIR:/hostdir --name $TARGET $IMAGE_NAME
-  - |
-    until [ "`docker inspect -f {{.State.Health.Status}} $TARGET`" == "healthy" ]
-    do
-      sleep 15;
-      echo "Waiting for docker service to finish startup..."
-    done;
+  - BUILD_IMAGE=true ci/travis.sh
 
 script:
   - sandbox_run pwd
-  - sandbox_run ls
 
 notifications:
   email:

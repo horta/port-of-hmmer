@@ -3,7 +3,14 @@
 set -e
 
 IMAGE_NAME=hortaebi/port-of-hmmer:$TARGET
-docker pull $IMAGE_NAME
+
+if [ "${BUILD_IMAGE+x}" = "x" ] && [ "$BUILD_IMAGE" == "true" ]
+then
+  (cd $TARGET && docker build -t $IMAGE_NAME .)
+else
+  docker pull $IMAGE_NAME
+fi
+
 docker run -dit -v $TRAVIS_BUILD_DIR:/hostdir --name $TARGET $IMAGE_NAME
 docker inspect -f {{.State.Health.Status}} $TARGET
 
