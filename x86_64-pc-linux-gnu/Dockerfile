@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-WORKDIR /root
+WORKDIR /hostdir
 ENV HOME /root
 RUN apt-get -y update
 RUN apt-get -y --no-install-recommends install curl gcc ca-certificates autoconf \

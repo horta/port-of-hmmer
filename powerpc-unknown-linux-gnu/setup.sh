@@ -2,8 +2,6 @@
 
 DIR=/hostdir
 
-echo "COMECOU"
-
 touch nohup.out
 nohup /usr/bin/qemu-system-ppc -nographic -vga none -L bios \
     -hda ./debian-wheezy-powerpc.qcow2 -m 512M -net user,hostfwd=tcp::22125-:22 \
