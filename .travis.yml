@@ -10,7 +10,7 @@ env:
 before_install:
 - (cd $TARGET && docker build -t $TARGET .)
 - touch $TARGET/hello
-- docker run -v $TRAVIS_BUILD_DIR:/hostdir $TARGET /bin/bash -c "file /hostdir/$TARGET/hello"
+- docker run -v $TRAVIS_BUILD_DIR:/hostdir $TARGET /bin/bash -c "test -e /hostdir/$TARGET/hello"
 
 notifications:
   email:
