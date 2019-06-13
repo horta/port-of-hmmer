@@ -3,7 +3,7 @@
 
 # Usage
 
-```
+```yaml
 language: minimal
 
 services:
@@ -19,9 +19,8 @@ before_install:
 - docker exec -t $TARGET ./setup.sh
 
 script:
-- docker exec -t $TARGET autoconf
-- docker exec -t $TARGET ./configure
-- docker exec -t $TARGET make
+- docker exec -t $TARGET "sshpass -p 'root' ssh -t -oLogLevel=QUIET -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root pwd"
+- docker exec -t $TARGET "sshpass -p 'root' ssh -t -oLogLevel=QUIET -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root autoconf"
 
 notifications:
   email:

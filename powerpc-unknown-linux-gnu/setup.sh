@@ -2,6 +2,8 @@
 
 DIR=/hostdir
 
+echo "COMECOU"
+
 touch nohup.out
 nohup /usr/bin/qemu-system-ppc -nographic -vga none -L bios \
     -hda ./debian-wheezy-powerpc.qcow2 -m 512M -net user,hostfwd=tcp::22125-:22 \
@@ -16,7 +18,7 @@ done
 echo "Done."
 
 ssh_cmd () {
-    sshpass -p 'root' ssh -t -oLogLevel=QUIET -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root "$1"
+    sshpass -p 'root' ssh -t -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root "$1"
 }
 
 ssh_cmd "echo \"host0 $DIR 9p trans=virtio,version=9p2000.L   0 0\" >> /etc/fstab"
@@ -28,3 +30,8 @@ ssh_cmd "uname -a"
 ssh_cmd "cat /proc/cpuinfo"
 
 echo "SETUP is done!"
+
+while [ 1 ]
+do
+    sleep 5
+done
