@@ -3,7 +3,18 @@ language: minimal
 services:
   - docker
 
+env:
+  matrix:
+    - TARGET=powerpc-unknown-linux-gnu
+
 before_install:
-- (cd powerpc-unknown-linux-gnu/ && docker build -t powerpc-unknown-linux-gnu .)
-- pwd
-- docker run -v $TRAVIS_BUILD_DIR:/hostdir powerpc-unknown-linux-gnu /bin/bash -c "ls /hostdir"
+- (cd $TARGET && docker build -t $TARGET .)
+- touch $TARGET/hello
+- docker run -v $TRAVIS_BUILD_DIR:/hostdir $TARGET /bin/bash -c "file /hostdir/$TARGET/hello"
+
+notifications:
+  email:
+    recipients:
+      - danilo.horta@pm.me
+    on_success: never
+    on_failure: always
