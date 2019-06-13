@@ -8,4 +8,3 @@ RUN curl http://rest.s3for.me/hmmer/debian-wheezy-powerpc.qcow2 \
     --output debian-wheezy-powerpc.qcow2
 RUN sha1sum -c sha1sum.txt
 ADD setup.sh setup.sh
-# CMD ["bash"]
