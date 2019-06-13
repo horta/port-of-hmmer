@@ -8,14 +8,19 @@ env:
     - TARGET=powerpc-unknown-linux-gnu
 
 before_install:
-- (cd $TARGET && docker build -t $TARGET .)
-- docker run -d -v $TRAVIS_BUILD_DIR:/hostdir --name $TARGET -t $TARGET
-- docker exec -t $TARGET ./setup.sh
+  - IMAGE_NAME=hortaebi/port-of-hmmer:$TARGET
+  - (cd $TARGET && docker build -t $IMAGE_NAME .)
+  - docker run -dit -v $TRAVIS_BUILD_DIR:/hostdir --name $TARGET $IMAGE_NAME
+  - |
+    until [ "`docker inspect -f {{.State.Health.Status}} $TARGET`"=="healthy" ]
+    do
+      sleep 15;
+      echo "Waiting for docker service to finish startup..."
+    done;
 
 script:
-- touch hello
-- docker exec -t $TARGET test -e /hostdir/hello
-- rm hello
+  - docker exec -t $TARGET ssh_run pwd
+  - docker exec -t $TARGET ssh_run ls
 
 notifications:
   email:
