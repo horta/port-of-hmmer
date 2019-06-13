@@ -1,7 +1,11 @@
+## Portability of HMMER
+
 [![Travis](https://img.shields.io/travis/com/horta/port-of-hmmer.svg)](https://travis-ci.com/horta/port-of-hmmer)
 
+We provide tools to help test HMMER software on different platforms.
+As of now, we have docker images and scripts to be used with the Travis CI services.
 
-# Usage
+## Usage
 
 ```yaml
 language: minimal
@@ -10,17 +14,29 @@ services:
   - docker
 
 env:
-  matrix:
-    - TARGET=powerpc-unknown-linux-gnu
+  global:
+    - PATH=$HOME/bin:$PATH
+
+matrix:
+  include:
+    - env: TARGET=x86_64-pc-linux-gnu
+      name: x86_64-pc-linux-gnu
+    - env: TARGET=powerpc-unknown-linux-gnu
+      name: powerpc-unknown-linux-gnu
+    - os: osx
+      env: TARGET=x86_64-apple-darwin
+      name: x86_64-apple-darwin
 
 before_install:
-- docker pull hortaebi/$TARGET
-- docker run -d -v $TRAVIS_BUILD_DIR:/hostdir --name $TARGET -t hortaebi/$TARGET
-- docker exec -t $TARGET ./setup.sh
+  - bash <(curl -fsSL https://raw.githubusercontent.com/horta/port-of-hmmer/master/ci/travis.sh)
 
 script:
-- docker exec -t $TARGET "sshpass -p 'root' ssh -t -oLogLevel=QUIET -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root pwd"
-- docker exec -t $TARGET "sshpass -p 'root' ssh -t -oLogLevel=QUIET -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root autoconf"
+  - sandbox_run git clone -b develop https://github.com/EddyRivasLab/easel.git
+  - sandbox_run ln -s easel/aclocal.m4 aclocal.m4
+  - sandbox_run autoconf
+  - sandbox_run ./configure
+  - sandbox_run make
+  - sandbox_run make check
 
 notifications:
   email:
