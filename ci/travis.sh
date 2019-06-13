@@ -14,3 +14,8 @@ do
 done
 
 echo "Docker service startup has finished!"
+
+mkdir $HOME/bin || true
+
+curl https://raw.githubusercontent.com/horta/port-of-hmmer/master/ci/travis_run \
+    --output $HOME/bin/travis_run
