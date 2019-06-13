@@ -12,7 +12,7 @@ before_install:
   - (cd $TARGET && docker build -t $IMAGE_NAME .)
   - docker run -dit -v $TRAVIS_BUILD_DIR:/hostdir --name $TARGET $IMAGE_NAME
   - |
-    until [ "`docker inspect -f {{.State.Health.Status}} $TARGET`"=="healthy" ]
+    until [ "`docker inspect -f {{.State.Health.Status}} $TARGET`" == "healthy" ]
     do
       sleep 15;
       echo "Waiting for docker service to finish startup..."
