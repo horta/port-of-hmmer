@@ -17,19 +17,18 @@ then
   echo "Docker image done."
 
   docker run -dit -v $TRAVIS_BUILD_DIR:/hostdir --name $TARGET $IMAGE_NAME
-  docker inspect -f {{.State.Health.Status}} $TARGET
 
   until [ "`docker inspect -f {{.State.Health.Status}} $TARGET`" == "healthy" ]
   do
-    sleep 30;
+    sleep 30
     echo "Waiting for docker service to finish startup..."
   done
 
-  msg=(docker inspect -f {{.State.Health.Status}} $TARGET)
-  echo "Docker service is $msg."
-
-  docker exec -t $TARGET ssh_run "apt-get update && apt-get upgrade -y"
-  docker exec -t $TARGET ssh_run "apt-get install -y python3"
+  if [ "$TARGET" == "powerpc-unknown-linux-gnu" ]
+  then
+    docker exec -t $TARGET ssh_run "apt-get update && apt-get upgrade -y"
+    docker exec -t $TARGET ssh_run "apt-get install -y python3"
+  fi
 
   echo "Docker service startup has finished!"
 fi
