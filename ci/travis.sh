@@ -17,5 +17,6 @@ echo "Docker service startup has finished!"
 
 mkdir $HOME/bin || true
 
-curl https://raw.githubusercontent.com/horta/port-of-hmmer/master/ci/travis_run \
-    --output $HOME/bin/travis_run
+curl https://raw.githubusercontent.com/horta/port-of-hmmer/master/ci/sandbox_run \
+    --output $HOME/bin/sandbox_run
+chmod +x $HOME/bin/sandbox_run
