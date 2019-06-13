@@ -4,13 +4,10 @@ if [ "$TRAVIS_OS_NAME" == "linux" ]
 then
   if [ "$TARGET" == "powerpc-unknown-linux-gnu" ]
   then
-    echo "Ponto 1"
     docker exec -t $TARGET ssh_run "$@"
   else
-    echo "Ponto 2"
     docker exec -t $TARGET "$@"
   fi
 else
-  echo "Ponto 3"
   eval "$@"
 fi

@@ -8,13 +8,10 @@ then
 
   if [ "${BUILD_IMAGE+x}" = "x" ] && [ "$BUILD_IMAGE" == "true" ]
   then
-    echo "Building docker image $IMAGE_NAME..."
     (cd $TARGET && docker build -t $IMAGE_NAME .)
   else
-    echo "Pulling docker image $IMAGE_NAME..."
     docker pull $IMAGE_NAME
   fi
-  echo "Docker image done."
 
   docker run -dit -v $TRAVIS_BUILD_DIR:/hostdir --name $TARGET $IMAGE_NAME
 
