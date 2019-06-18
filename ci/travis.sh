@@ -21,12 +21,6 @@ then
     echo "Waiting for docker service to finish startup..."
   done
 
-  if [ "$TARGET" == "powerpc-unknown-linux-gnu" ]
-  then
-    docker exec -t $TARGET ssh_run "apt-get update && apt-get upgrade -y"
-    docker exec -t $TARGET ssh_run "apt-get install -y python3"
-  fi
-
   echo "Docker service startup has finished!"
 fi
 

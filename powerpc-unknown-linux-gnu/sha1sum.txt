@@ -1,1 +1,1 @@
-2bd55ee52d7b4231959a941325fce867e1e18b24  debian-wheezy-powerpc.qcow2
+249433b26d53eff95ade363050835aaa37dbb111  debian-wheezy-powerpc.qcow2
