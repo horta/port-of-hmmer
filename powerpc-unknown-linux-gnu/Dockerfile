@@ -12,5 +12,5 @@ RUN sha1sum -c sha1sum.txt
 ADD setup.sh setup.sh
 ADD ssh_run bin/ssh_run
 CMD ["/bin/bash", "setup.sh"]
-HEALTHCHECK --interval=10s --timeout=3s \
+HEALTHCHECK --interval=90s --timeout=5s \
   CMD ssh_run "pwd" || exit 1
