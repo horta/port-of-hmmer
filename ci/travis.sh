@@ -4,7 +4,7 @@ set -e
 
 sandbox_run_setup()
 {
-  mkdir $HOME/bin || true
+  test -d $HOME/bin || mkdir $HOME/bin
   curl https://raw.githubusercontent.com/horta/port-of-hmmer/master/ci/sandbox_run \
       --output $HOME/bin/sandbox_run
   chmod +x $HOME/bin/sandbox_run
