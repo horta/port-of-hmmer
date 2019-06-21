@@ -14,7 +14,7 @@ matrix:
       name: osx
 
 before_install:
-  - ci/travis.sh
+  - BUILD_IMAGE=true ci/travis.sh
 
 script:
   - sandbox_run pwd

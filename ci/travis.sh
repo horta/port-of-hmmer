@@ -41,4 +41,12 @@ then
   sandbox_run "echo \"host0 $DIR 9p trans=virtio,version=9p2000.L 0 0\" >> /etc/fstab"
   sandbox_run "mkdir -p $DIR"
   sandbox_run "mount $DIR"
+elif [ "$TARGET" == "x86_64-pc-linux-gnu" ]
+then
+  if [ "${BUILD_IMAGE+x}" = "x" ] && [ "$BUILD_IMAGE" == "true" ]
+  then
+    (cd $TARGET && docker build -t $IMAGE_NAME .)
+  else
+    docker pull $IMAGE_NAME
+  fi
 fi
