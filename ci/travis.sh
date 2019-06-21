@@ -13,8 +13,9 @@ sandbox_run_setup()
 
 ppc_setup()
 {
-  curl http://rest.s3for.me/hmmer/debian-wheezy-powerpc.qcow2 \
-    --output debian-wheezy-powerpc.qcow2
+  curl http://rest.s3for.me/hmmer/debian-wheezy-powerpc.qcow2.bz2 \
+    --output debian-wheezy-powerpc.qcow2.bz2
+  bunzip2 debian-wheezy-powerpc.qcow2.bz2
 
   touch nohup.out
   VIRT=local,path=$TRAVIS_BUILD_DIR,mount_tag=host0,security_model=passthrough,id=host0
@@ -36,8 +37,6 @@ if [ "$TARGET" == "powerpc-unknown-linux-gnu" ]
 then
   ppc_setup
   DIR=/hostdir
-  sandbox_run "echo \"host0 $DIR 9p trans=virtio,version=9p2000.L 0 0\" >> /etc/fstab"
-  sandbox_run "mkdir -p $DIR"
   sandbox_run "mount $DIR"
 elif [ "$TARGET" == "x86_64-pc-linux-gnu" ]
 then
