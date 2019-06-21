@@ -1,8 +1,5 @@
 language: minimal
 
-services:
-  - docker
-
 matrix:
   include:
     - env: TARGET=x86_64-pc-linux-gnu
@@ -10,6 +7,8 @@ matrix:
     - env: TARGET=powerpc-unknown-linux-gnu
       name: powerpc-unknown-linux-gnu
       dist: xenial
+      services:
+        - docker
     - os: osx
       env: TARGET=osx
       name: osx
