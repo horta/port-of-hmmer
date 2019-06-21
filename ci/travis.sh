@@ -24,6 +24,7 @@ ppc_setup()
     -hda ./debian-wheezy-powerpc.qcow2 -m 512M -net user,hostfwd=tcp::22125-:22 \
     -virtfs $VIRT -net nic
   # >nohup.out 2>&1 &
+
   
   tail -f nohup.out | tee /dev/tty | while read LOGLINE
   do
