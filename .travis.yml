@@ -13,9 +13,8 @@ matrix:
       env: TARGET=osx
       name: osx
 
-
 before_install:
-  - BUILD_IMAGE=true ci/travis.sh
+  - ci/travis.sh
 
 script:
   - sandbox_run pwd

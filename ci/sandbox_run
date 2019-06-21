@@ -1,13 +1,19 @@
 #!/usr/bin/env bash
 
-if [ "$TRAVIS_OS_NAME" == "linux" ]
+ppc_run ()
+{
+  sshpass -p 'root' ssh -t -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root "$1"
+}
+
+if [ "$TARGET" == "powerpc-unknown-linux-gnu" ]
 then
-  if [ "$TARGET" == "powerpc-unknown-linux-gnu" ]
-  then
-    docker exec -t $TARGET ssh_run "$@"
-  else
-    docker exec -t $TARGET "$@"
-  fi
-else
+  ppc_run "$@"
+elif [ "$TARGET" == "x86_64-pc-linux-gnu" ]
+  docker exec -t $TARGET "$@"
+elif [ "$TARGET" == "osx" ]
   eval "$@"
+else
+  echo "Unrecognized TARGET: $TARGET"
+  exit 1
 fi
+

@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-cmd="cd /hostdir && $@"
-sshpass -p 'root' ssh -t -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root "$cmd"
