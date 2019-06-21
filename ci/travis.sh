@@ -50,4 +50,7 @@ then
   else
     docker pull $IMAGE_NAME
   fi
+
+  DIR=/hostdir
+  docker run -dit -v $TRAVIS_BUILD_DIR:$DIR --name $TARGET $IMAGE_NAME
 fi
