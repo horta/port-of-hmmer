@@ -19,7 +19,8 @@ ppc_setup()
 
   touch nohup.out
   VIRT=local,path=$TRAVIS_BUILD_DIR,mount_tag=host0,security_model=passthrough,id=host0
-  nohup qemu-system-ppc -nographic -vga none -L bios \
+  # nohup
+  qemu-system-ppc -nographic -vga none -L bios \
     -hda ./debian-wheezy-powerpc.qcow2 -m 512M -net user,hostfwd=tcp::22125-:22 \
     -virtfs $VIRT -net nic
   # >nohup.out 2>&1 &
