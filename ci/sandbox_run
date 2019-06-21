@@ -9,11 +9,12 @@ if [ "$TARGET" == "powerpc-unknown-linux-gnu" ]
 then
   ppc_run "$@"
 elif [ "$TARGET" == "x86_64-pc-linux-gnu" ]
+then
   docker exec -t $TARGET "$@"
 elif [ "$TARGET" == "osx" ]
+then
   eval "$@"
 else
   echo "Unrecognized TARGET: $TARGET"
   exit 1
 fi
-
