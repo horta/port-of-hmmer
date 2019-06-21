@@ -1,4 +1,3 @@
-dist: xenial
 language: minimal
 
 services:
@@ -10,6 +9,7 @@ matrix:
       name: x86_64-pc-linux-gnu
     - env: TARGET=powerpc-unknown-linux-gnu
       name: powerpc-unknown-linux-gnu
+      dist: xenial
     - os: osx
       env: TARGET=osx
       name: osx
