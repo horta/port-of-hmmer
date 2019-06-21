@@ -21,6 +21,7 @@ addons:
       - qemu
       - qemu-system-ppc
       - openssh-client
+      - openbios-ppc
 
 before_install:
   - BUILD_IMAGE=true ci/travis.sh
