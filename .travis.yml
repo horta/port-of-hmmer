@@ -17,6 +17,9 @@ addons:
   apt:
     packages:
       - sshpass
+      - qemu
+      - qemu-system-ppc
+      - openssh-client
 
 before_install:
   - BUILD_IMAGE=true ci/travis.sh

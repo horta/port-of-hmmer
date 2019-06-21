@@ -34,8 +34,6 @@ sandbox_run_setup
 
 if [ "$TARGET" == "powerpc-unknown-linux-gnu" ]
 then
-  sudo apt-get install -y qemu qemu-system-ppc openssh-client
-
   ppc_setup
   DIR=/hostdir
   sandbox_run "echo \"host0 $DIR 9p trans=virtio,version=9p2000.L 0 0\" >> /etc/fstab"
