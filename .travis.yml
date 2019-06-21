@@ -13,6 +13,11 @@ matrix:
       env: TARGET=osx
       name: osx
 
+addons:
+  apt:
+    packages:
+      - sshpass
+
 before_install:
   - BUILD_IMAGE=true ci/travis.sh
 

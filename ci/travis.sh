@@ -34,7 +34,7 @@ sandbox_run_setup
 
 if [ "$TARGET" == "powerpc-unknown-linux-gnu" ]
 then
-  sudo apt-get install -y qemu qemu-system-ppc openssh-client sshpass
+  sudo apt-get install -y qemu qemu-system-ppc openssh-client
 
   ppc_setup
   DIR=/hostdir
