@@ -1,3 +1,5 @@
+language: minimal
+
 env:
   global:
     - PATH=$HOME/bin:$PATH
