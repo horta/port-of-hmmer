@@ -31,11 +31,12 @@ ppc_setup()
   curl http://rest.s3for.me/hmmer/debian-wheezy-powerpc.qcow2.bz2 \
     --output $HOME_TMP/debian-wheezy-powerpc.qcow2.bz2
   bunzip2 -v $HOME_TMP/debian-wheezy-powerpc.qcow2.bz2
+  PPC_FILE=$HOME_TMP/debian-wheezy-powerpc.qcow2
 
   touch $HOME_TMP/nohup.out
   VIRT=local,path=$TRAVIS_BUILD_DIR,mount_tag=host0,security_model=passthrough,id=host0
   nohup qemu-system-ppc -nographic -vga none -L bios \
-    -hda ./debian-wheezy-powerpc.qcow2 -m 512M -net user,hostfwd=tcp::22125-:22 \
+    -hda $PPC_FILE -m 512M -net user,hostfwd=tcp::22125-:22 \
     -virtfs $VIRT -net nic >$HOME_TMP/nohup.out 2>&1 &
 
   tail -f $HOME_TMP/nohup.out | tee /dev/tty | while read LOGLINE
