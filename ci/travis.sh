@@ -38,7 +38,7 @@ ppc_setup()
     -hda ./debian-wheezy-powerpc.qcow2 -m 512M -net user,hostfwd=tcp::22125-:22 \
     -virtfs $VIRT -net nic >$HOME_TMP/nohup.out 2>&1 &
 
-  tail -f logfile.log | tee /dev/tty | while read LOGLINE
+  tail -f $HOME_TMP/nohup.out | tee /dev/tty | while read LOGLINE
   do
     [[ "${LOGLINE}" == *"Debian GNU/Linux 7 debian-powerpc"* ]] && pkill -P $$ tail
   done
