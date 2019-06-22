@@ -34,7 +34,6 @@ if [ "$TARGET" == "powerpc-unknown-linux-gnu" ]
 then
   ppc_setup
   DIR=/hostdir
-  sandbox_run "mount $DIR"
 elif [ "$TARGET" == "x86_64-pc-linux-gnu" ]
 then
   IMAGE_NAME=hortaebi/port-of-hmmer:$TARGET
