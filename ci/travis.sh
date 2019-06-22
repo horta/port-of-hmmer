@@ -38,8 +38,10 @@ ppc_setup()
     -hda ./debian-wheezy-powerpc.qcow2 -m 512M -net user,hostfwd=tcp::22125-:22 \
     -virtfs $VIRT -net nic >$HOME_TMP/nohup.out 2>&1 &
 
-  echo "Waiting for the ppc system to start up..."
-  ( tail -f -n0 $HOME_TMP/nohup.out & ) | grep -q "Debian GNU/Linux 7 debian-powerpc"
+  tail -f logfile.log | tee /dev/tty | while read LOGLINE
+  do
+    [[ "${LOGLINE}" == *"Debian GNU/Linux 7 debian-powerpc"* ]] && pkill -P $$ tail
+  done
 
   echo "PPC setup is done."
 }
