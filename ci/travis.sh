@@ -25,7 +25,6 @@ ppc_setup()
     -virtfs $VIRT -net nic
   # >nohup.out 2>&1 &
 
-  
   tail -f nohup.out | tee /dev/tty | while read LOGLINE
   do
     [[ "${LOGLINE}" == *"Debian GNU/Linux 7 debian-powerpc"* ]] && pkill -P $$ tail
