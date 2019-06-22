@@ -1,3 +1,7 @@
+env:
+  global:
+    - PATH=$HOME/bin:$PATH
+
 matrix:
   include:
     - name: x86_64-pc-linux-gnu
