@@ -28,7 +28,7 @@ before_install:
 script:
   - sandbox_run pwd
   - touch hello
-  - sandbox_run test -e /hostdir/hello
+  - sandbox_run test -e hello
 
 notifications:
   email:

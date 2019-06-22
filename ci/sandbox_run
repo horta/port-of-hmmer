@@ -7,7 +7,7 @@ ppc_run ()
 
 if [ "$TARGET" == "powerpc-unknown-linux-gnu" ]
 then
-  ppc_run "$@"
+  ppc_run "cd /hostdir && $@"
 elif [ "$TARGET" == "x86_64-pc-linux-gnu" ]
 then
   docker exec -t $TARGET "$@"
