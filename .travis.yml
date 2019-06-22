@@ -20,11 +20,11 @@ matrix:
 addons:
   apt:
     packages:
-      - sshpass
+      - openbios-ppc
+      - openssh-client
       - qemu
       - qemu-system-ppc
-      - openssh-client
-      - openbios-ppc
+      - sshpass
 
 before_install:
   - BUILD_IMAGE=true ci/travis.sh
