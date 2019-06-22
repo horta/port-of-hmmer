@@ -2,12 +2,14 @@
 
 ppc_run ()
 {
-  sshpass -p 'root' ssh -t -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root "$1"
+  sshpass -p 'root' ssh -t -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root "$@"
 }
 
 if [ "$TARGET" == "powerpc-unknown-linux-gnu" ]
 then
-  ppc_run "cd /hostdir && $@"
+  cmd="cd /hostdir && $@"
+  echo "Running: $cmd"
+  ppc_run $cmd
 elif [ "$TARGET" == "x86_64-pc-linux-gnu" ]
 then
   docker exec -t $TARGET "$@"
