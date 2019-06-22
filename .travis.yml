@@ -26,8 +26,11 @@ before_install:
   - BUILD_IMAGE=true ci/travis.sh
 
 script:
+  - pwd
   - sandbox_run pwd
   - touch hello
+  - ls
+  - sandbox_run ls
   - sandbox_run test -e hello
 
 notifications:
