@@ -41,6 +41,7 @@ then
 elif [ "$TARGET" == "x86_64-pc-linux-gnu" ]
 then
   IMAGE_NAME=hortaebi/port-of-hmmer:$TARGET
+
   if [ "${BUILD_IMAGE+x}" = "x" ] && [ "$BUILD_IMAGE" == "true" ]
   then
     (cd $TARGET && docker build -t $IMAGE_NAME .)
