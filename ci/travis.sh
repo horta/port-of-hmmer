@@ -41,7 +41,7 @@ ppc_setup()
 
   tail -f $HOME_TMP/nohup.out | tee /dev/tty | while read LOGLINE
   do
-    [[ "${LOGLINE}" == *"Debian GNU/Linux 7 debian-powerpc"* ]] && pkill -P $$ tail
+    [[ "${LOGLINE}" == *"Debian GNU/Linux 7 debian-powerpc"* ]] && break
   done
 
   echo "PPC setup is done."
