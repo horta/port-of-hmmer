@@ -56,10 +56,8 @@ ppc_setup()
   ppc_run groupadd -g $grp_id $usr_name
   ppc_run useradd -u $usr_id -g $grp_id -m $usr_name
   ppc_run "echo $usr_name:$usr_name | chpasswd"
-  ppc_run "umount /hostdir && chown $usr_name:$usr_name /hostdir"
-  name=$(id -un)
-  sshpass -p "$name" ssh -t -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l $name "mount /hostdir"
-
+  ppc_run "chown $usr_name:$usr_name /hostdir"
+  ppc_run "mount -t 9p -o uid=$usr_id,gid=$grp_id,umask=022,trans=virtio,version=9p2000.L host0 /hostdir"
 
   echo "PPC setup is done."
 }
