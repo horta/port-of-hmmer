@@ -50,7 +50,7 @@ ppc_setup()
   
   sandbox_run groupadd -g $grp_id $usr_name
   sandbox_run useradd -u $usr_id -g $grp_id $usr_name
-  sandbox_run echo -e \"$usr_id\" | passwd --stdin $usr_id
+  sandbox_run echo -e "$usr_id\n$usr_id" | passwd $usr_id
 
   echo "PPC setup is done."
 }
