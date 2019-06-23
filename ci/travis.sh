@@ -56,7 +56,7 @@ ppc_setup()
   ppc_run groupadd -g $grp_id $usr_name
   ppc_run useradd -u $usr_id -g $grp_id -m $usr_name
   ppc_run "echo $usr_name:$usr_name | chpasswd"
-  ppc_run chown $usr_name:$usr_name /hostdir
+  ppc_run "umount /hostdir && chown $usr_name:$usr_name /hostdir && mount /hostdir"
 
   echo "PPC setup is done."
 }
