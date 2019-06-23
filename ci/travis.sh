@@ -47,10 +47,15 @@ ppc_setup()
   usr_id=$(id -u)
   grp_id=$(id -g)
   usr_name=$(id -un)
+
+  ppc_run ()
+  {
+    sshpass -p "root" ssh -t -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root "$@"
+  }
   
-  sandbox_run groupadd -g $grp_id $usr_name
-  sandbox_run useradd -u $usr_id -g $grp_id -m $usr_name
-  sandbox_run echo -e "$usr_name\n$usr_name" | passwd $usr_name
+  ppc_run groupadd -g $grp_id $usr_name
+  ppc_run useradd -u $usr_id -g $grp_id -m $usr_name
+  ppc_run echo -e "$usr_name\n$usr_name" | passwd $usr_name
 
   echo "PPC setup is done."
 }
