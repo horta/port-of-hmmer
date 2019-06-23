@@ -49,8 +49,8 @@ ppc_setup()
   usr_name=$(id -un)
   
   sandbox_run groupadd -g $grp_id $usr_name
-  sandbox_run useradd -u $usr_id -g $grp_id $usr_name
-  sandbox_run echo -e "$usr_id\n$usr_id" | passwd $usr_id
+  sandbox_run useradd -u $usr_id -g $grp_id -m $usr_name
+  sandbox_run echo -e "$usr_name\n$usr_name" | passwd $usr_name
 
   echo "PPC setup is done."
 }
