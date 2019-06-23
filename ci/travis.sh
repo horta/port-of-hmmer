@@ -55,7 +55,7 @@ ppc_setup()
   
   ppc_run groupadd -g $grp_id $usr_name
   ppc_run useradd -u $usr_id -g $grp_id -m $usr_name
-  ppc_run echo $usr_name:$usr_name | chpasswd
+  ppc_run \"echo $usr_name:$usr_name | chpasswd\"
 
   echo "PPC setup is done."
 }
