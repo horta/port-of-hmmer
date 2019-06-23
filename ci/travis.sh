@@ -44,6 +44,14 @@ ppc_setup()
     [[ "${LOGLINE}" == *"Debian GNU/Linux 7 debian-powerpc"* ]] && break
   done
 
+  usr_id=$(id -u)
+  grp_id=$(id -g)
+  usr_name=$(id -un)
+  
+  sandbox_run groupadd -g $grp_id $usr_name
+  sandbox_run useradd -u $usr_id -g $grp_id $usr_name
+  sandbox_run echo -e \"$usr_id\" | passwd --stdin $usr_id
+
   echo "PPC setup is done."
 }
 
