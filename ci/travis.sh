@@ -34,10 +34,12 @@ ppc_setup()
   PPC_FILE=$HOME_TMP/debian-wheezy-powerpc.qcow2
 
   touch $HOME_TMP/nohup.out
-  VIRT=local,path=$TRAVIS_BUILD_DIR,mount_tag=host0,security_model=passthrough,id=host0
+  DIR=$(realpath $TRAVIS_BUILD_DIR/../)
+  echo $DIR
+  VIRT=local,path=$DIR,mount_tag=host0,security_model=passthrough,id=host0
   nohup qemu-system-ppc -nographic -vga none -L bios \
-    -hda $PPC_FILE -m 512M -net user,hostfwd=tcp::22125-:22 \
-    -virtfs $VIRT -net nic >$HOME_TMP/nohup.out 2>&1 &
+    -hda $PPC_FILE -m 512M -net user,hostfwd=tcp::22125-:22 -net nic \
+    -virtfs $VIRT >$HOME_TMP/nohup.out 2>&1 &
 
   tail -f $HOME_TMP/nohup.out | tee /dev/tty | while read LOGLINE
   do
@@ -53,20 +55,19 @@ ppc_setup()
     sshpass -p "root" ssh -t -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root "$@"
   }
   
-  chmod 777 $TRAVIS_BUILD_DIR
+  # chmod 777 $TRAVIS_BUILD_DIR
   ppc_run groupadd -g $grp_id $usr_name
   ppc_run useradd -u $usr_id -g $grp_id -m $usr_name
   ppc_run "echo $usr_name:$usr_name | chpasswd"
-  ppc_run "chmod 777 /hostdir"
-  ppc_run "chown $usr_name:$usr_name /hostdir"
-  ppc_run "ls -lah / | grep hostdir"
+  # ppc_run "chmod 777 /hostdir"
+  # ppc_run "chown $usr_name:$usr_name /hostdir"
+  # ppc_run "ls -lah / | grep hostdir"
   ppc_run "usermod -a -G disk $usr_name"
   ppc_run "usermod -a -G staff $usr_name"
   # opts="uid=$usr_id,gid=$grp_id,umask=000,trans=virtio,version=9p2000.L"
   opts="umask=0,trans=virtio,version=9p2000.L"
   ppc_run "mount -t 9p -o $opts host0 /hostdir"
-  ppc_run "ls -lah / | grep hostdir"
-  ls -lah $TRAVIS_BUILD_DIR/..
+  ppc_run "ls -lah /hostdir"
 
   echo "PPC setup is done."
 }

@@ -8,7 +8,8 @@ ppc_run ()
 
 if [ "$TARGET" == "powerpc-unknown-linux-gnu" ]
 then
-  ppc_run "cd /hostdir && $@"
+  DIR=/hostdir/$(basename $TRAVIS_BUILD_DIR)
+  ppc_run "cd $DIR && $@"
 elif [ "$TARGET" == "x86_64-pc-linux-gnu" ]
 then
   docker exec -t $TARGET "$@"
