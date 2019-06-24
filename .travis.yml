@@ -8,14 +8,12 @@ matrix:
   include:
     - name: x86_64-pc-linux-gnu
       os: linux
-      env: TARGET=x86_64-pc-linux-gnu
     - name: powerpc-unknown-linux-gnu
       os: linux
       dist: xenial
       env: TARGET=powerpc-unknown-linux-gnu
     - name: osx
       os: osx
-      env: TARGET=osx
 
 addons:
   apt:
