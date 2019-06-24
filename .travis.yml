@@ -27,7 +27,7 @@ addons:
       - sshpass
 
 before_install:
-  - BUILD_IMAGE=true ci/travis.sh
+  - ci/travis.sh
 
 script:
   - touch hello

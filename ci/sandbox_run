@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ppc_run ()
+ppc_run()
 {
   name=$(id -un)
   sshpass -p "$name" ssh -t -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l $name "$@"
