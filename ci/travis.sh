@@ -59,6 +59,7 @@ ppc_setup()
   ppc_run "chown $usr_name:$usr_name /hostdir"
   ppc_run "mount -t 9p -o uid=$usr_id,gid=$grp_id,umask=022,trans=virtio,version=9p2000.L host0 /hostdir"
 
+
   echo "PPC setup is done."
 }
 
