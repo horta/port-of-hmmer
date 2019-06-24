@@ -53,6 +53,7 @@ ppc_setup()
     sshpass -p "root" ssh -t -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root "$@"
   }
   
+  chmod 777 $TRAVIS_BUILD_DIR
   ppc_run groupadd -g $grp_id $usr_name
   ppc_run useradd -u $usr_id -g $grp_id -m $usr_name
   ppc_run "echo $usr_name:$usr_name | chpasswd"
