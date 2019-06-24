@@ -28,14 +28,13 @@ ppc_setup()
 {
   echo "Setting ppc up..."
 
-  curl http://rest.s3for.me/hmmer/debian-wheezy-powerpc.qcow2.bz2 \
-    --output $HOME_TMP/debian-wheezy-powerpc.qcow2.bz2
-  bunzip2 -v $HOME_TMP/debian-wheezy-powerpc.qcow2.bz2
+  PPC_ZFILE=debian-wheezy-powerpc.qcow2.bz2
+  curl http://rest.s3for.me/hmmer/$PPC_ZFILE --output $HOME_TMP/$PPC_ZFILE
+  bunzip2 -v $HOME_TMP/$PPC_ZFILE
   PPC_FILE=$HOME_TMP/debian-wheezy-powerpc.qcow2
 
   touch $HOME_TMP/nohup.out
   DIR=$(realpath $TRAVIS_BUILD_DIR/../)
-  echo $DIR
   VIRT=local,path=$DIR,mount_tag=host0,security_model=passthrough,id=host0
   nohup qemu-system-ppc -nographic -vga none -L bios \
     -hda $PPC_FILE -m 512M -net user,hostfwd=tcp::22125-:22 -net nic \
@@ -55,19 +54,11 @@ ppc_setup()
     sshpass -p "root" ssh -t -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l root "$@"
   }
   
-  # chmod 777 $TRAVIS_BUILD_DIR
   ppc_run groupadd -g $grp_id $usr_name
   ppc_run useradd -u $usr_id -g $grp_id -m $usr_name
   ppc_run "echo $usr_name:$usr_name | chpasswd"
-  # ppc_run "chmod 777 /hostdir"
-  # ppc_run "chown $usr_name:$usr_name /hostdir"
-  # ppc_run "ls -lah / | grep hostdir"
-  ppc_run "usermod -a -G disk $usr_name"
-  ppc_run "usermod -a -G staff $usr_name"
-  # opts="uid=$usr_id,gid=$grp_id,umask=000,trans=virtio,version=9p2000.L"
   opts="umask=0,trans=virtio,version=9p2000.L"
   ppc_run "mount -t 9p -o $opts host0 /hostdir"
-  ppc_run "ls -lah /hostdir"
 
   echo "PPC setup is done."
 }
@@ -75,16 +66,16 @@ ppc_setup()
 x86_64_setup()
 {
   echo "Setting x86_64 up..."
-  IMAGE_NAME=hortaebi/port-of-hmmer:$TARGET
+  # IMAGE_NAME=hortaebi/port-of-hmmer:$TARGET
 
-  if [ "${BUILD_IMAGE+x}" = "x" ] && [ "$BUILD_IMAGE" == "true" ]
-  then
-    (cd $TARGET && docker build -t $IMAGE_NAME .)
-  else
-    docker pull $IMAGE_NAME
-  fi
+  # if [ "${BUILD_IMAGE+x}" = "x" ] && [ "$BUILD_IMAGE" == "true" ]
+  # then
+  #   (cd $TARGET && docker build -t $IMAGE_NAME .)
+  # else
+  #   docker pull $IMAGE_NAME
+  # fi
 
-  docker run -dit -v $TRAVIS_BUILD_DIR:/hostdir --name $TARGET $IMAGE_NAME
+  # docker run -dit -v $TRAVIS_BUILD_DIR:/hostdir --name $TARGET $IMAGE_NAME
   echo "x86_64 setup is done."
 }
 
