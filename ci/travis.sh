@@ -62,11 +62,11 @@ ppc_setup()
   ppc_run "ls -lah / | grep hostdir"
   ppc_run "usermod -a -G disk $usr_name"
   ppc_run "usermod -a -G staff $usr_name"
-  opts="uid=$usr_id,gid=$grp_id,umask=000,trans=virtio,version=9p2000.L"
+  # opts="uid=$usr_id,gid=$grp_id,umask=000,trans=virtio,version=9p2000.L"
+  opts="umask=0,trans=virtio,version=9p2000.L"
   ppc_run "mount -t 9p -o $opts host0 /hostdir"
   ppc_run "ls -lah / | grep hostdir"
-  ppc_run "chmod 777 /hostdir"
-  ppc_run "ls -lah / | grep hostdir"
+  ls -lah $TRAVIS_BUILD_DIR/..
 
   echo "PPC setup is done."
 }
