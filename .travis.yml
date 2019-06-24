@@ -32,6 +32,7 @@ before_install:
   - BUILD_IMAGE=true ci/travis.sh
 
 script:
+  - sandbox_run ls -lah
   - touch hello
   - sandbox_run test -e hello
   - rm hello
