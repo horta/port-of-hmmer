@@ -32,20 +32,12 @@ before_install:
   - BUILD_IMAGE=true ci/travis.sh
 
 script:
-  - whoami
-  - id
-  - sandbox_run whoami
-  - sandbox_run id
   - touch hello
-  - ls -lah | grep hello
-  - sandbox_run ls -lah | grep hello
-  - ls -lah ../
-  - sandbox_run ls -lah ../
   - sandbox_run test -e hello
-  - sandbox_run rm hello
+  - rm hello
   - sandbox_run mkdir hello
   - test -d hello
-  - rmdir hello
+  - sandbox_run rmdir hello
 
 notifications:
   email:
