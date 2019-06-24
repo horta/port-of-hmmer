@@ -8,6 +8,10 @@ matrix:
   include:
     - name: x86_64-pc-linux-gnu
       os: linux
+    - name: powerpc-unknown-linux-gnu
+      os: linux
+      dist: xenial
+      env: TARGET=powerpc-unknown-linux-gnu
       addons:
         apt:
           packages:
@@ -16,10 +20,6 @@ matrix:
             - qemu
             - qemu-system-ppc
             - sshpass
-    - name: powerpc-unknown-linux-gnu
-      os: linux
-      dist: xenial
-      env: TARGET=powerpc-unknown-linux-gnu
     - name: osx
       os: osx
 
