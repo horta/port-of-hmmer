@@ -27,9 +27,9 @@ ppc_start()
   NOHUP_OUT=$TMP_DIR/nohup.out
   touch $NOHUP_OUT
   DIR=$(realpath $TRAVIS_BUILD_DIR/../)
-  OPTS=-nographic -vga none -L bios \
+  OPTS="-nographic -vga none -L bios \
     -hda $PPC_FILE -m 512M -net user,hostfwd=tcp::22125-:22 -net nic \
-    -virtfs local,path=$DIR,mount_tag=host0,security_model=passthrough,id=host0
+    -virtfs local,path=$DIR,mount_tag=host0,security_model=passthrough,id=host0"
 
   # Start the emulator
   nohup qemu-system-ppc $OPTS >$NOHUP_OUT 2>&1 &
