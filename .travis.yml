@@ -23,7 +23,6 @@ matrix:
     - name: osx
       os: osx
 
-
 before_install:
   - ci/travis.sh
 
