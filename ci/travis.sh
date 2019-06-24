@@ -59,9 +59,12 @@ ppc_setup()
   ppc_run "chmod 777 /hostdir"
   ppc_run "chown $usr_name:$usr_name /hostdir"
   ppc_run "ls -lah / | grep hostdir"
+  ppc_run "usermod -a -G disk $usr_name"
+  ppc_run "usermod -a -G staff $usr_name"
   opts="uid=$usr_id,gid=$grp_id,umask=000,trans=virtio,version=9p2000.L"
   echo $opts
-  ppc_run "mount -t 9p -o $opts host0 /hostdir"
+  # ppc_run "mount -t 9p -o $opts host0 /hostdir"
+  sshpass -p "$usr_name" ssh -t -oStrictHostKeyChecking=no 127.0.0.1 -p 22125 -l $usr_name "mount -t 9p -o $opts host0 /hostdir"
   ppc_run "ls -lah / | grep hostdir"
 
   echo "PPC setup is done."
