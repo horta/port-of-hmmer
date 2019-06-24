@@ -8,6 +8,14 @@ matrix:
   include:
     - name: x86_64-pc-linux-gnu
       os: linux
+      addons:
+        apt:
+          packages:
+            - openbios-ppc
+            - openssh-client
+            - qemu
+            - qemu-system-ppc
+            - sshpass
     - name: powerpc-unknown-linux-gnu
       os: linux
       dist: xenial
@@ -15,14 +23,6 @@ matrix:
     - name: osx
       os: osx
 
-addons:
-  apt:
-    packages:
-      - openbios-ppc
-      - openssh-client
-      - qemu
-      - qemu-system-ppc
-      - sshpass
 
 before_install:
   - ci/travis.sh
