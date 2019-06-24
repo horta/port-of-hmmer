@@ -33,6 +33,7 @@ before_install:
 
 script:
   - sandbox_run ls -lah
+  - ls -lah ../
   - touch hello
   - sandbox_run test -e hello
   - rm hello

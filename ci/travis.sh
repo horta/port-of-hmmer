@@ -60,9 +60,6 @@ ppc_setup()
   ppc_run "chown $usr_name:$usr_name /hostdir"
   opts="uid=$usr_id,gid=$grp_id,umask=000,trans=virtio,version=9p2000.L"
   ppc_run "mount -t 9p -o $opts host0 /hostdir"
-  ppc_run "chmod 777 /hostdir"
-  ppc_run "chown $usr_name:$usr_name /hostdir"
-
 
   echo "PPC setup is done."
 }
